@@ -21,21 +21,40 @@ test:
   database: storage/test.sqlite3
 
 
-# Store production database in the storage/ directory, which by default
-# is mounted as a persistent Docker volume in config/deploy.yml.
+# Use Cloud SQL PostgreSQL in production
 production:
   primary:
-    <<: *default
-    database: storage/production.sqlite3
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
+    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
+    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
   cache:
-    <<: *default
-    database: storage/production_cache.sqlite3
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
+    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
+    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
-    database: storage/production_queue.sqlite3
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
+    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
+    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
-    database: storage/production_cable.sqlite3
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
+    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
+    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
     migrations_paths: db/cable_migrate
