@@ -29,7 +29,7 @@ production:
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
     username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
     host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
   cache:
     adapter: postgresql
@@ -37,7 +37,7 @@ production:
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
     username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
     host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
     migrations_paths: db/cache_migrate
   queue:
@@ -46,7 +46,7 @@ production:
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
     username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
     host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
     migrations_paths: db/queue_migrate
   cable:
@@ -55,6 +55,6 @@ production:
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
     username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: <%= Rails.application.credentials.dig(:gcp, :db_password) %>
+    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
     host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
     migrations_paths: db/cable_migrate
