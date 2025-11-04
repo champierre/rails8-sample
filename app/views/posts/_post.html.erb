@@ -1,0 +1,16 @@
+<div id="<%= dom_id post %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= post.title %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Body:</strong>
+    <%= post.body %>
+  </div>
+  <% if post.image.attached? %>
+    <div>
+      <strong class="block font-medium mb-1">Image:</strong>
+      <%= image_tag post.image, class: "max-w-full h-auto rounded-lg" %>
+    </div>
+  <% end %>
+</div>
