@@ -56,7 +56,7 @@ steps:
       - '--add-cloudsql-instances'
       - '${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME}'
       - '--set-env-vars'
-      - 'RAILS_ENV=production,CLOUD_SQL_CONNECTION_NAME=${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME},PRODUCTION_DB_NAME=rails8-sample,PRODUCTION_DB_USERNAME=postgres'
+      - 'RAILS_ENV=production,CLOUD_SQL_CONNECTION_NAME=${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME},PRODUCTION_DB_NAME=rails8-sample,PRODUCTION_DB_USERNAME=postgres,PORT=80'
       - '--set-secrets'
       - 'RAILS_MASTER_KEY=${_SECRET_NAME}:latest'
 
