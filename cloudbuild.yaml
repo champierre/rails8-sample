@@ -53,18 +53,16 @@ steps:
       - '--port'
       - '8080'
       - '--allow-unauthenticated'
-      - '--add-cloudsql-instances'
-      - '${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME}'
       - '--set-env-vars'
-      - 'RAILS_ENV=production,CLOUD_SQL_CONNECTION_NAME=${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME},PRODUCTION_DB_NAME=rails8-sample,PRODUCTION_DB_USERNAME=postgres'
+      - 'RAILS_ENV=production'
       - '--set-secrets'
-      - 'RAILS_MASTER_KEY=${_SECRET_NAME}:latest'
+      - 'RAILS_MASTER_KEY=${_SECRET_NAME}:latest,DATABASE_URL=${_DATABASE_URL_SECRET_NAME}:latest'
 
 substitutions:
   _SERVICE_NAME: rails8-sample
-  _INSTANCE_NAME: rails8-sample
   _REGION: asia-northeast1
   _SECRET_NAME: RAILS_SECRET_NAME
+  _DATABASE_URL_SECRET_NAME: DATABASE_URL
 
 options:
   logging: CLOUD_LOGGING_ONLY

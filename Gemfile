@@ -1,14 +1,14 @@
 source "https://rubygems.org"
 
-ruby "3.4.7"
+ruby "3.4.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-# Use sqlite3 as the database for Active Record
+# Use sqlite3 as the database for Active Record (development/test)
 gem "sqlite3", ">= 2.1"
-# Use PostgreSQL for production
+# Use PostgreSQL for production (Supabase)
 gem "pg", "~> 1.5"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -34,6 +34,9 @@ gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+
+# Load environment variables from .env file
+gem "dotenv-rails", groups: [:development, :test]
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false

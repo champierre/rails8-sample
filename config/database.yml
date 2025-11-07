@@ -21,40 +21,28 @@ test:
   database: storage/test.sqlite3
 
 
-# Use Cloud SQL PostgreSQL in production
+# Use Supabase (PostgreSQL) in production
 production:
   primary:
     adapter: postgresql
     encoding: unicode
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
-    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
-    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
+    url: <%= ENV['DATABASE_URL'] %>
   cache:
     adapter: postgresql
     encoding: unicode
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
-    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
-    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
+    url: <%= ENV['DATABASE_URL'] %>
     migrations_paths: db/cache_migrate
   queue:
     adapter: postgresql
     encoding: unicode
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
-    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
-    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
+    url: <%= ENV['DATABASE_URL'] %>
     migrations_paths: db/queue_migrate
   cable:
     adapter: postgresql
     encoding: unicode
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    database: <%= ENV.fetch("PRODUCTION_DB_NAME") { "rails8_production" } %>
-    username: <%= ENV.fetch("PRODUCTION_DB_USERNAME") { "postgres" } %>
-    password: "<%= Rails.application.credentials.dig(:gcp, :db_password) %>"
-    host: <%= ENV["CLOUD_SQL_CONNECTION_NAME"].present? ? "/cloudsql/#{ENV['CLOUD_SQL_CONNECTION_NAME']}" : "localhost" %>
+    url: <%= ENV['DATABASE_URL'] %>
     migrations_paths: db/cable_migrate

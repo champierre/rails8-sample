@@ -6,10 +6,9 @@ if [ -z "${LD_PRELOAD+x}" ]; then
     export LD_PRELOAD
 fi
 
-# If running the rails server then create or migrate existing database
-# Skip in production as migrations are handled separately
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ] && [ "$RAILS_ENV" != "production" ]; then
-  ./bin/rails db:prepare
+# If running the rails server then migrate existing database
+if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+  ./bin/rails db:migrate
 fi
 
 exec "${@}"
