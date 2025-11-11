@@ -56,13 +56,17 @@ steps:
       - '--set-env-vars'
       - 'RAILS_ENV=production'
       - '--set-secrets'
-      - 'RAILS_MASTER_KEY=${_SECRET_NAME}:latest,DATABASE_URL=${_DATABASE_URL_SECRET_NAME}:latest'
+      - 'RAILS_MASTER_KEY=${_SECRET_NAME}:latest'
+      - '--add-volume'
+      - 'name=gcs,type=cloud-storage,bucket=${_STORAGE_BUCKET}'
+      - '--add-volume-mount'
+      - 'volume=gcs,mount-path=/rails/storage'
 
 substitutions:
   _SERVICE_NAME: rails8-sample
   _REGION: asia-northeast1
   _SECRET_NAME: RAILS_SECRET_NAME
-  _DATABASE_URL_SECRET_NAME: DATABASE_URL
+  _STORAGE_BUCKET: rails8-sample-storage
 
 options:
   logging: CLOUD_LOGGING_ONLY

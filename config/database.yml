@@ -21,28 +21,20 @@ test:
   database: storage/test.sqlite3
 
 
-# Use Supabase (PostgreSQL) in production
+# Use SQLite in production with Cloud Storage mounted volume
 production:
   primary:
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    url: <%= ENV['DATABASE_URL'] %>
+    <<: *default
+    database: storage/production.sqlite3
   cache:
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    url: <%= ENV['DATABASE_URL'] %>
+    <<: *default
+    database: storage/production_cache.sqlite3
     migrations_paths: db/cache_migrate
   queue:
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    url: <%= ENV['DATABASE_URL'] %>
+    <<: *default
+    database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
   cable:
-    adapter: postgresql
-    encoding: unicode
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    url: <%= ENV['DATABASE_URL'] %>
+    <<: *default
+    database: storage/production_cable.sqlite3
     migrations_paths: db/cable_migrate
