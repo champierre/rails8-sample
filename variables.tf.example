@@ -1,0 +1,32 @@
+# ============================================================
+# Terraform変数定義ファイル（テンプレート）
+# ============================================================
+#
+# このファイルをコピーして variables.tf を作成してください:
+#   cp variables.tf.example variables.tf
+#
+# そして、各変数の値をご自身の環境に合わせて変更してください。
+#
+# 注意: variables.tf は .gitignore に追加されており、
+#       Gitリポジトリには含まれません。
+# ============================================================
+
+variable "project_id" {
+  description = "GCP Project ID"
+  default     = "your-gcp-project-id"  # ← ご自身のGCPプロジェクトIDに変更してください
+}
+
+variable "region" {
+  description = "GCP Region"
+  default     = "asia-northeast1"
+}
+
+variable "zone" {
+  description = "GCP Zone"
+  default     = "asia-northeast1-a"
+}
+
+variable "app_name" {
+  description = "Application name"
+  default     = "rails8-sample"
+}

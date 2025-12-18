@@ -40,3 +40,15 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+*.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+variables.tf  # 環境固有の変数定義ファイル（variables.tf.exampleをテンプレートとして使用）

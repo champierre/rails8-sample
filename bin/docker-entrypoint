@@ -1,4 +1,24 @@
-#!/bin/bash -e
+#!/bin/bash
+
+echo "=== ENTRYPOINT STARTED ===" >&2
+echo "Working directory: $(pwd)" >&2
+echo "User: $(whoami)" >&2
+echo "UID/GID: $(id)" >&2
+echo "Arguments: $@" >&2
+
+# Wait for GCS FUSE mount to be fully ready
+echo "Waiting for db/data mount to be ready..." >&2
+for i in {1..30}; do
+  if [ -d "db/data" ] && [ -w "db/data" ]; then
+    echo "db/data is ready and writable" >&2
+    break
+  fi
+  echo "Waiting for db/data... attempt $i/30" >&2
+  sleep 1
+done
+
+echo "DB data directory check:" >&2
+ls -la db/data 2>&1 || echo "Cannot list db/data" >&2
 
 # Enable jemalloc for reduced memory usage and latency.
 if [ -z "${LD_PRELOAD+x}" ]; then
@@ -6,9 +26,13 @@ if [ -z "${LD_PRELOAD+x}" ]; then
     export LD_PRELOAD
 fi
 
-# If running the rails server then migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:migrate
+# If running the rails server then prepare database
+if [[ "$*" == *"rails server"* ]] || [[ "$1" == "./bin/rails" && "$2" == "server" ]]; then
+  echo "Preparing database..." >&2
+  ./bin/rails db:prepare 2>&1 || {
+    echo "Database preparation failed, but continuing..." >&2
+  }
 fi
 
+echo "=== STARTING APPLICATION ===" >&2
 exec "${@}"
